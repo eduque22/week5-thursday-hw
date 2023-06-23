@@ -64,15 +64,15 @@ ORDER BY COUNT(rating);
 --7. Show all customers who have made a single payment above 6.99
 --use subqueries
 
-SELECT customer_id, amount
-FROM payment
+SELECT customer_id, first_name, last_name
+FROM customer
 WHERE customer_id IN (
 	SELECT customer_id
-	FROM customer
+	FROM payment
+	WHERE amount > 6.99
 	GROUP BY customer_id
-	HAVING amount = 6.99
-)
-GROUP BY customer_id, amount;
+	HAVING COUNT(amount) = 1
+);
 
 
 --8. How many free rentals did our stores give away?
